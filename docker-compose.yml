@@ -10,6 +10,7 @@ services:
       some-network:  
     environment:
       discovery.type: single-node 
+      xpack.ml.enabled: "false"
 
   collector:
     image: jaegertracing/jaeger-collector:1.14
@@ -23,7 +24,7 @@ services:
       - "9411:9411" #(zipkin span, disabled by default)
     environment:
       SPAN_STORAGE_TYPE: elasticsearch
-      ES_SERVER_URLS: "http://piax:9200"
+      ES_SERVER_URLS: "http://some-network:9200"
 
   agent:
     image: jaegertracing/jaeger-agent:1.14
@@ -44,7 +45,7 @@ services:
       - "16687:16687"
     environment:
       SPAN_STORAGE_TYPE: elasticsearch
-      ES_SERVER_URLS: http://piax:9200
+      ES_SERVER_URLS: http://some-netowrk:9200
 
 networks: 
   some-network:
